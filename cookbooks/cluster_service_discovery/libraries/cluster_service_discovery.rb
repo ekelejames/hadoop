@@ -1,51 +1,5 @@
-#
-# Author:: Philip (flip) Kromer for Infochimps.org
-# Cookbook Name:: cassandra
-# Recipe:: autoconf
-#
-# Copyright 2010, Infochimps, Inc
-# Portions Copyright (c) 2012-2014 VMware, Inc. All rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
 
-# Much inspiration for this code taken from corresponding functionality in
-# Benjamin Black (<b@b3k.us>)'s cassandra cookbooks
-#
 
-#
-# ClusterServiceDiscovery --
-#
-# Allow nodes to discover the location for a given service at runtime, adapting
-# when new services register.
-#
-# Operations:
-#
-# * provide a service. A timestamp records the last registry.
-# * discover all providers for the given service.
-# * discover the most recent provider for that service.
-# * get the 'public_ip' for a provider -- the address that nodes in the larger
-#   world should use
-# * get the 'public_ip' for a provider -- the address that nodes on the local
-#   subnet / private cloud should use
-#
-# Implementation
-#
-# Nodes register a service by setting the +[:provides_service][service_name]+
-# attribute. This attribute is a hash containing at 'timestamp' (the time of
-# registry), but the service can pass in an arbitrary hash of values to merge
-# in.
-#
 module ClusterServiceDiscovery
   WAIT_TIMEOUT = 1800 # seconds
   SLEEP_TIME = 5
